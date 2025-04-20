@@ -356,23 +356,24 @@ class RecipeRequest(BaseModel):
     diet: Optional[str] = None
     cuisine: Optional[str] = None
 
-# def generate_fallback_recipe(ingredients: str) -> str:
-#     """Generate a simple recipe when API fails"""
-#     return f"""### {ingredients} Recipe
+def generate_fallback_recipe(ingredients: str) -> str:
+    """Generate a simple recipe when API fails"""
+    return f"""### {ingredients} Recipe
 
-# ### Ingredients
-# - {ingredients.replace(',', '\n-')}
+### Ingredients
+- {ingredients.replace(',', '\n-')}
 
-# ### Instructions
-# 1. Wash and prepare all ingredients
-# 2. Combine in a mixing bowl
-# 3. Cook/blend as needed
-# 4. Season to taste
-# 5. Serve and enjoy!
+### Instructions
+SORRY MODEL IS CURRENTLY NOT ACCEPTING RESPONSES TRY THIS-
+1. Wash and prepare all ingredients
+2. Combine in a mixing bowl
+3. Cook/blend as needed
+4. Season to taste
+5. Serve and enjoy!
 
-# ### Tips
-# - Add spices according to your preference
-# - Adjust consistency with water or milk"""
+### Tips
+- Add spices according to your preference
+- Adjust consistency with water or milk"""
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
