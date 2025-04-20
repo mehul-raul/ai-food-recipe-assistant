@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NPChef</title>
+    <link rel="icon" href="https://img.icons8.com/ios-filled/100/meal.png" type="image/png">
+    
+    <!-- Optional: For better display on mobile homescreens -->
+    <link rel="apple-touch-icon" href="https://img.icons8.com/ios-filled/100/meal.png">
+    <meta name="theme-color" content="#FF8C42">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-orange-50 text-gray-800">
+    <!-- Hero Section -->
+    <!-- <section class="bg-gradient-to-r from-orange-400 to-orange-500 text-white py-20 pt-20 text-center">
+      <h1 class="text-5xl font-bold mb-4">AI Recipe Generator</h1>
+      <p class="text-lg">Enter your ingredients below and get amazing recipes!</p>
+    </section> -->
+    <section class="text-center mb-10 bg-gradient-to-r from-orange-400 to-orange-500 text-white py-10 text-center">
+      <img src="https://img.icons8.com/ios-filled/100/meal.png" alt="logo" class="mx-auto  w-16 h-16 mb-2">
+      <h1 class="text-4xl font-extrabold tracking-tight text-white">NPChef Recipe Assistant</h1>
+      <p class="text-sm text-white font-bold mt-2">NPChef Recipe Assistant for NPCs = Non-Player Cooks 😉 </p>
+      <!-- <p class="text-sm text-white font-bold mt-2"> Enter your ingredients below and get amazing recipes!</p> -->
+    </section>
+
+    <!-- Input Section -->
+    <section class="max-w-3xl mx-auto py-10 px-4">
+      <h2 class="text-2xl text-orange-400 font-bold mb-4">Enter your ingredients below and get amazing recipes!</h2>
+      <form id="recipeForm" class="space-y-4">
+        <textarea
+          id="ingredientsInput"
+          class="w-full p-4 rounded-lg shadow border border-orange-300 focus:ring-2 focus:ring-orange-400"
+          rows="4"
+          placeholder="e.g. rice, tomato, onion, chicken or just the name of the dish you want to make"
+        ></textarea>
+        <div class="flex gap-4">
+          <button
+            type="submit"
+            class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg shadow"
+          >
+            Generate Recipe
+          </button>
+          <button
+            type="button"
+            onclick="clearInput()"
+            class="bg-white text-orange-500 border border-orange-500 hover:bg-orange-100 px-6 py-2 rounded-lg shadow"
+          >
+            Clear
+          </button>
+        </div>
+
+        <!-- Dietary Preferences & Cuisine Type -->
+        <div class="mt-6 grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="diet" class="block font-medium mb-1">Dietary Preference</label>
+            <select id="diet" class="w-full p-3 rounded-lg border border-orange-300">
+              <option value="">Any</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+              <option value="gluten-free">Gluten-Free</option>
+            </select>
+          </div>
+          <div>
+            <label for="cuisine" class="block font-medium mb-1">Cuisine Type</label>
+            <select id="cuisine" class="w-full p-3 rounded-lg border border-orange-300">
+              <option value="">Any</option>
+              <option value="indian">Indian</option>
+              <option value="italian">Italian</option>
+              <option value="mexican">Mexican</option>
+            </select>
+          </div>
+        </div>
+      </form>
+
+      <!-- Most Used Ingredients -->
+      <div class="mt-6">
+        <h2 class="text-xl font-semibold mb-2">Most Used Ingredients</h2>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="fillIngredient('rice')" class="bg-orange-200 hover:bg-orange-300 px-3 py-1 rounded-full">rice</button>
+          <button onclick="fillIngredient('onion')" class="bg-orange-200 hover:bg-orange-300 px-3 py-1 rounded-full">onion</button>
+          <button onclick="fillIngredient('chicken')" class="bg-orange-200 hover:bg-orange-300 px-3 py-1 rounded-full">chicken</button>
+          <button onclick="fillIngredient('garlic')" class="bg-orange-200 hover:bg-orange-300 px-3 py-1 rounded-full">garlic</button>
+          <button onclick="fillIngredient('milk')" class="bg-orange-200 hover:bg-orange-300 px-3 py-1 rounded-full">milk</button>
+          <button onclick="fillIngredient('bread')" class="bg-orange-200 hover:bg-orange-300 px-3 py-1 rounded-full">bread</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recipe Output Section -->
+    <section id="recipeOutput" class="max-w-4xl mx-auto px-4 pb-20">
+      <!-- Recipes will appear here -->
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-orange-100 text-center py-9 pt-9 text-sm text-orange-700 mt-20" >
+      <!-- Made with ❤️ using AI. Never waste food. -->
+      <p class="flex items-center justify-center space-x-1">
+        <span>Made with ❤️</span>
+        <!-- <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+        </svg> -->
+        <span>by <a href="https://mehul-raul.github.io/mehul.dev.portfolio/" class="text-orange-600 hover:text-orange-800 font-medium" target="_blank" rel="noopener noreferrer">Mehul Raul</a></span>
+        <span>|</span>
+        <span>Never waste food:)</span>
+    </p>
+    </footer>
+
+    <script>
+      const form = document.getElementById("recipeForm");
+      const ingredientsInput = document.getElementById("ingredientsInput");
+      const output = document.getElementById("recipeOutput");
+      const dietSelect = document.getElementById("diet");
+      const cuisineSelect = document.getElementById("cuisine");
+
+      function fillIngredient(text) {
+        ingredientsInput.value = ingredientsInput.value
+          ? ingredientsInput.value + ", " + text
+          : text;
+        ingredientsInput.focus();
+      }
+
+      function clearInput() {
+        ingredientsInput.value = "";
+        ingredientsInput.focus();
+      }
+
+      
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    output.innerHTML = "<div class='text-center py-6'><div class='inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-orange-500'></div><p class='mt-2 text-orange-500'>Generating your recipe...</p></div>";
+
+    try {
+      const response = await fetch("/api/generate-recipe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ingredients: ingredientsInput.value.trim(),
+          diet: dietSelect.value || null,
+          cuisine: cuisineSelect.value || null
+        })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || "Recipe generation failed");
+      }
+
+      const data = await response.json();
+      
+      // Format the recipe with proper line breaks
+      const formattedRecipe = data.recipe.replace(/\n/g, '<br>');
+      
+      output.innerHTML = `
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+          <img src="${data.image_url}" alt="Recipe" class="w-full h-48 object-cover" onerror="this.src='/docs/static/placeholder.jpg'">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-4">Your Generated Recipe</h3>
+            <div class="prose max-w-none">${formattedRecipe}</div>
+          </div>
+        </div>
+      `;
+    } catch (error) {
+      output.innerHTML = `
+        <div class="bg-red-50 border-l-4 border-red-500 p-4">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm text-red-700">${error.message}</p>
+            </div>
+          </div>
+        </div>
+      `;
+      console.error("Error:", error);
+    }
+  });
+</script>
+  </body>
+</html>
