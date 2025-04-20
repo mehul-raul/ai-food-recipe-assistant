@@ -345,7 +345,7 @@ os.makedirs("templates", exist_ok=True)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 # templates = Jinja2Templates(directory="templates")
-templates = Jinja2Templates(directory="../docs")  # Now points to GitHub Pages dir
+templates = Jinja2Templates(directory="backend/templates")  # Now points to GitHub Pages dir
 
 # More reliable model that fits within free tier
 TEXT_MODEL = "mistralai/Mixtral-8x7B-Instruct-v0.1"  # Smaller model that works reliably
