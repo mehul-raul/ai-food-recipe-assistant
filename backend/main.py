@@ -343,7 +343,7 @@ app = FastAPI()
 os.makedirs("static", exist_ok=True)
 os.makedirs("templates", exist_ok=True)
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="backend/templates/static"), name="static")
 # templates = Jinja2Templates(directory="templates")
 templates = Jinja2Templates(directory="backend/templates")  # Now points to GitHub Pages dir
 
