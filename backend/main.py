@@ -375,21 +375,26 @@ class RecipeRequest(BaseModel):
 # - Add spices according to your preference
 # - Adjust consistency with water or milk"""
 def generate_fallback_recipe(ingredients: str) -> str:
-    return (
-        f"### {ingredients} Recipe\n\n"
-        f"### Ingredients\n"
-        f"- {ingredients.replace(',', '\\n-')}\n\n"  # Escaped newline
-        f"### Instructions\n"
-        f"SORRY MODEL IS CURRENTLY NOT ACCEPTING RESPONSES TRY THIS-\n"
-        f"1. Wash and prepare all ingredients\n"
-        f"2. Combine in a mixing bowl\n"
-        f"3. Cook/blend as needed\n"
-        f"4. Season to taste\n"
-        f"5. Serve and enjoy!\n\n"
-        f"### Tips\n"
-        f"- Add spices according to your preference\n"
-        f"- Adjust consistency with water or milk"
-    )
+    """Generate a simple recipe when API fails"""
+    # First process the ingredients list separately
+    ingredients_list = ingredients.replace(',', '\n-')
+    
+    return f"""### {ingredients} Recipe
+
+### Ingredients
+- {ingredients_list}
+
+### Instructions
+SORRY MODEL IS CURRENTLY NOT ACCEPTING RESPONSES TRY THIS-
+1. Wash and prepare all ingredients
+2. Combine in a mixing bowl
+3. Cook/blend as needed
+4. Season to taste
+5. Serve and enjoy!
+
+### Tips
+- Add spices according to your preference
+- Adjust consistency with water or milk"""
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
