@@ -8,6 +8,7 @@
 # import openai
 # from typing import Optional, List
 # import logging
+#from pathlib import Path
 
 # # Configure logging
 # logging.basicConfig(level=logging.INFO)
@@ -29,7 +30,9 @@
 # )
 
 # # Setup templates
-# templates = Jinja2Templates(directory="backden/templates")
+#current_dir = Path(__file__).parent
+#templates_path = current_dir / "templates"
+#templates =  Jinja2Templates(directory=str(templates_path))
 
 # # Configure OpenAI
 # # openai.api_key = os.getenv("OPENAI_API_KEY")
