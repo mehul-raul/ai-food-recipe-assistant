@@ -29,7 +29,7 @@
 # )
 
 # # Setup templates
-# templates = Jinja2Templates(directory="templates")
+# templates = Jinja2Templates(directory="backden/templates")
 
 # # Configure OpenAI
 # # openai.api_key = os.getenv("OPENAI_API_KEY")
